@@ -25,11 +25,7 @@ vae_config_url = "https://raw.githubusercontent.com/heurist-network/heurist-mode
 # Make sure to increase num_cuda_devices for SD miner if your machine has multiple GPUs
 num_cuda_devices = 1
 # Number of children processes is only applicable to LLM miner
-<<<<<<< HEAD
-num_child_process = 30
-=======
 num_child_process = 4
->>>>>>> upstream/main
 sleep_duration = 2
 min_deadline = 1
 reload_interval = 600
@@ -39,8 +35,4 @@ max_iterations = 50
 max_width = 1024
 max_height = 1024
 # Limit on the concurrent requests for LLM miner. Actual running requests may go over. Higher concurrency results in higher throughput but longer latency
-<<<<<<< HEAD
-concurrency_soft_limit = 20
-=======
 concurrency_soft_limit = 5
->>>>>>> upstream/main

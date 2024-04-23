@@ -2,9 +2,32 @@ import time
 import psutil
 import logging
 import requests
+import random
 from urllib3.util import Retry
 from requests.adapters import HTTPAdapter
 from .cuda_utils import get_hardware_description
+
+def select_random_proxies():
+    proxies = [
+        "http://skstpxfx-rotate:wtjcnyut9z7y@p.webshare.io:80",
+  "http://chanhouyong:Welcome@prc@sg.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@jp.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@au.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@us-wa.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@us-ca.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@fr.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@de.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@nl.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@us.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@us-dc.proxymesh.com:31280",
+  "http://chanhouyong:Welcome@prc@us-il.proxymesh.com:31280",
+    ] 
+    proxy = random.choice(proxies)[0]
+
+    return {
+        "http": proxy,
+        "https": proxy
+    }
 
 DEFAULT_MINER_ID = "default_miner_id"
 
@@ -62,9 +85,12 @@ def send_miner_request(config, miner_id, model_id):
     )
     adapter = HTTPAdapter(max_retries=retry_strategy)
 
+    proxies = select_random_proxies()
+
     with requests.Session() as session:
         session.mount("http://", adapter)
         session.mount("https://", adapter)
+        session.proxies.update(proxies)
         try:
             response = session.post(url, json=request_data)
             # Assuming response.text contains the full text response from the server
